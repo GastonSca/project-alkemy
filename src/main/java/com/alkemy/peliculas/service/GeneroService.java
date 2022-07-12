@@ -1,15 +1,12 @@
 package com.alkemy.peliculas.service;
 
 import com.alkemy.peliculas.dto.GeneroDTO;
-import org.springframework.stereotype.Service;
 
-@Service
-public class GeneroService {
+import java.util.List;
 
-    public GeneroDTO save(GeneroDTO dto){
-        //TODO: guardar
+public interface GeneroService {
 
-        System.out.println("GUARDAR GENERO");
-        return dto;
-    }
+    GeneroDTO save(GeneroDTO dto);
+    List<GeneroDTO> getAllGeneros();
+
 }
