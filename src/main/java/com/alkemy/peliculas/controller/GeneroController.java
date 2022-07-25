@@ -24,8 +24,6 @@ public class GeneroController {
 
     @PostMapping
     public ResponseEntity<GeneroDTO> save(@RequestBody GeneroDTO genero) {
-        // save genero
-
         GeneroDTO generoGuardado = generoService.save(genero);
         //201, genero guardado
         return ResponseEntity.status(HttpStatus.CREATED).body(generoGuardado);

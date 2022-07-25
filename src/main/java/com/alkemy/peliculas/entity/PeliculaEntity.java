@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,17 +20,17 @@ public class PeliculaEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String nombre;
+    private String imagen;
 
     private String titulo;
 
     @Column(name = "fecha_creacion")
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaCreacion;
 
     private Integer calificacion; // 1 a 5 estrellas
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "genero_id", insertable = false, updatable = false)
     private GeneroEntity genero;
 
@@ -40,12 +41,17 @@ public class PeliculaEntity {
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
-            })
+            }
+    )
     @JoinTable(
             name = "personaje_peli",
-            joinColumns = @JoinColumn(name = "pelicula_id"),
+            joinColumns= @JoinColumn(name = "pelicula_id"),
             inverseJoinColumns = @JoinColumn(name = "personaje_id"))
     private Set<PersonajeEntity> personajes = new HashSet<>();
+    @PrePersist
+    public void prePersist(){
+        setFechaCreacion(LocalDate.now());
+    }
 
 
 }

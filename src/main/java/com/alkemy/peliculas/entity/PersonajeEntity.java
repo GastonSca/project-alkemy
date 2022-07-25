@@ -18,10 +18,12 @@ public class PersonajeEntity {
     private Long id;
 
     private String imagen;
-    private String Nombre;
+    private String nombre;
     private Integer edad;
     private Double peso;
     private String historia;
+
+    private Boolean deleted = Boolean.FALSE;
 
     @ManyToMany(mappedBy = "personajes", cascade = CascadeType.ALL)
     private List<PeliculaEntity> peliculas = new ArrayList<>();
